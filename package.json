@@ -1,0 +1,11 @@
+{
+    "name": "cars-orm-task",
+    "version": "1.0.0",
+    "description": "The cars task with ORM.",
+    "main": "index.js",
+    "author": "Aram Arakelyan <aram777arakelyan@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^5.1.0"
+    }
+}
