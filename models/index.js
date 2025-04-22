@@ -2,6 +2,8 @@ import Car from "./car.js"
 import Feature from "./feature.js"
 import Model from "./model.js"
 import Make from "./make.js"
+import Dealership from "./dealership.js"
+import User from "./user.js"
 
 Car.belongsTo(Model, { foreignKey: "model_id" })
 
@@ -14,8 +16,19 @@ Car.belongsToMany(Feature, {
     foreignKey: "car_id",
     timestamps: false,
 })
+
 Feature.belongsToMany(Car, {
     through: "car_features",
     foreignKey: "feature_id",
     timestamps: false,
+})
+
+Dealership.hasMany(User, {
+    through: "users_dealership",
+    foreignKey: "dealership_id",
+})
+
+Dealership.hasMany(Car, {
+    through: "dealership_cars",
+    foreignKey: "dealership_id",
 })

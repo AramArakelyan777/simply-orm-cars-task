@@ -1,13 +1,13 @@
 import { DataTypes } from "sequelize"
 import sequelize from "../config/db.js"
 
-const UsersDealerships = sequelize.define("users_dealership", {
-    user_id: {
+const DealershipCars = sequelize.define("dealership_cars", {
+    dealership_id: {
         type: DataTypes.INTEGER,
     },
-    dealership_id: {
+    car_id: {
         type: DataTypes.INTEGER,
     },
 })
 
-export default UsersDealerships
+export default DealershipCars

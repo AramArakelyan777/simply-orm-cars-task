@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize"
 import sequelize from "../config/db.js"
 
-const CarRatings = sequelize.define("car_rating", {
+const CarRatings = sequelize.define("car_ratings", {
     car_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

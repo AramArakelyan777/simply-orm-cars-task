@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize"
-import sequelize from "../config/db"
+import sequelize from "../config/db.js"
 
 const Dealership = sequelize.define(
-    "dealership",
+    "dealerships",
     {
         id: {
             type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ const Dealership = sequelize.define(
             type: DataTypes.TEXT,
         },
     },
-    { paranoid: true }
+    { paranoid: true, timestamps: false }
 )
 
 export default Dealership
