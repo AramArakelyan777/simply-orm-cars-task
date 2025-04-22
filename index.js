@@ -14,7 +14,7 @@ app.use(errorMiddleware)
 const start = async () => {
     try {
         await sequelize.sync({
-            force: false,
+            force: true,
             alter: false,
         })
         app.listen(PORT, () => {
