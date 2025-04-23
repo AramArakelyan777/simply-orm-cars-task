@@ -23,7 +23,7 @@ const start = async () => {
             console.log(`SERVER RUNNING ON PORT ${PORT}.`)
         })
     } catch (err) {
-        console.log("Unable to connect to the database:", err)
+        console.log("DB error:", err)
     }
 }
 

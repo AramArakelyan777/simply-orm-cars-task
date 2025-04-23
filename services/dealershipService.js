@@ -1,5 +1,6 @@
 import Dealership from "../models/dealership.js"
 import DealershipCars from "../models/dealership_car.js"
+import UsersDealerships from "../models/users_dealerships.js"
 
 class DealershipService {
     async createDealership(name, address, description) {
@@ -13,6 +14,10 @@ class DealershipService {
     async doesDealershipExist(dealership_id) {
         const count = await Dealership.count({ where: { id: dealership_id } })
         return count > 0
+    }
+
+    async addUserToDealership(user_id, dealership_id) {
+        return await UsersDealerships.create({ user_id, dealership_id })
     }
 }
 

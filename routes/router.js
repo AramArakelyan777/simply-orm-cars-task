@@ -10,4 +10,6 @@ router.post("/add_car_to_dealership", dealershipController.addCarToDealership)
 
 router.post("/create_user", userController.createUser)
 
+router.post("/add_user_to_dealership", dealershipController.addUserToDealership)
+
 export default router

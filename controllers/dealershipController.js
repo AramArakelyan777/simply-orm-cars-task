@@ -1,5 +1,6 @@
 import dealershipService from "../services/dealershipService.js"
 import carService from "../services/carService.js"
+import userService from "../services/userService.js"
 
 class DealershipController {
     async createDealership(req, res) {
@@ -17,10 +18,8 @@ class DealershipController {
             return res.status(201).json({
                 message: "Dealership created successfully.",
             })
-        } catch (error) {
-            return res.status(500).json({
-                message: error.message,
-            })
+        } catch (err) {
+            return res.status(500).json({ message: err.message })
         }
     }
 
@@ -52,10 +51,39 @@ class DealershipController {
             return res.status(201).json({
                 message: "Car added to dealership successfully.",
             })
-        } catch (error) {
-            return res.status(500).json({
-                message: error.message,
+        } catch (err) {
+            return res.status(500).json({ message: err.message })
+        }
+    }
+
+    async addUserToDealership(req, res) {
+        const { user_id, dealership_id } = req.body
+
+        if (!user_id || !dealership_id)
+            return res.status(400).json({
+                message: "You must provide both user id and dealership id.",
             })
+
+        try {
+            const userExists = await userService.doesUserExist(user_id)
+            if (!userExists)
+                return res.status(404).json({ message: "User not found" })
+
+            const dealershipExists =
+                await dealershipService.doesDealershipExist(dealership_id)
+            if (!dealershipExists) {
+                return res
+                    .status(404)
+                    .json({ message: "Dealership not found." })
+            }
+
+            await dealershipService.addUserToDealership(user_id, dealership_id)
+
+            return res.status(201).json({
+                message: "User added to dealership successfully.",
+            })
+        } catch (err) {
+            return res.status(500).json({ message: err.message })
         }
     }
 }
