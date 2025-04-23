@@ -86,6 +86,41 @@ class DealershipController {
             return res.status(500).json({ message: err.message })
         }
     }
+
+    async getDealerships(req, res) {
+        try {
+            const dealerships = await dealershipService.getDealerships()
+
+            return res.status(200).json({
+                message: "Dealerships fetched successfully.",
+                dealerships,
+            })
+        } catch (err) {
+            return res.status(500).json({ message: err.message })
+        }
+    }
+
+    async getADealership(req, res) {
+        const { dealership_id } = req.params
+
+        try {
+            const dealership = await dealershipService.getADealership(
+                dealership_id
+            )
+
+            if (!dealership)
+                return res
+                    .status(404)
+                    .json({ message: "Dealership not found." })
+
+            return res.status(200).json({
+                message: "Dealership fetched successfully.",
+                dealership,
+            })
+        } catch (err) {
+            return res.status(500).json({ message: err.message })
+        }
+    }
 }
 
 export default new DealershipController()

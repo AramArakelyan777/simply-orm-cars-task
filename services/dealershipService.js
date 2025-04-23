@@ -19,6 +19,14 @@ class DealershipService {
     async addUserToDealership(user_id, dealership_id) {
         return await UsersDealerships.create({ user_id, dealership_id })
     }
+
+    async getDealerships() {
+        return await Dealership.findAll()
+    }
+
+    async getADealership(dealership_id) {
+        return await Dealership.findOne({ where: { id: dealership_id } })
+    }
 }
 
 export default new DealershipService()
