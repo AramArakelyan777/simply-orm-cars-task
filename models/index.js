@@ -28,7 +28,12 @@ Dealership.hasMany(User, {
     foreignKey: "dealership_id",
 })
 
-Dealership.hasMany(Car, {
+Dealership.belongsToMany(Car, {
     through: "dealership_cars",
     foreignKey: "dealership_id",
+})
+
+Car.belongsToMany(Dealership, {
+    through: "dealership_cars",
+    foreignKey: "car_id",
 })

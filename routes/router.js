@@ -1,20 +1,63 @@
 import { Router } from "express"
 import dealershipService from "../services/dealershipService.js"
+import carService from "../services/carService.js"
 
 const router = Router()
 
 router.post("/create_dealership", async (req, res) => {
     const { name, address, description } = req.body
 
-    if (!name || !address)
-        res.status(400).send({ message: "Name and address are required." })
+    if (!name || !address) {
+        return res
+            .status(400)
+            .json({ message: "Name and address are required." })
+    }
 
-    const dealership = await dealershipService.createDealership(
-        name,
-        address,
-        description
-    )
-    res.status(200).send(dealership)
+    try {
+        await dealershipService.createDealership(name, address, description)
+
+        return res.status(201).json({
+            message: "Dealership created successfully.",
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+        })
+    }
+})
+
+router.post("/add_car_to_dealership", async (req, res) => {
+    const { car_id, dealership_id } = req.body
+
+    if (!car_id || !dealership_id) {
+        return res.status(400).json({
+            message: "Please provide both car id and dealership id.",
+        })
+    }
+
+    try {
+        const carExists = await carService.doesCarExist(car_id)
+        if (!carExists) {
+            return res.status(404).json({ message: "Car not found." })
+        }
+
+        const dealershipExists = await dealershipService.doesDealershipExist(
+            dealership_id
+        )
+        if (!dealershipExists) {
+            return res.status(404).json({ message: "Dealership not found." })
+        }
+
+        await dealershipService.addCar(dealership_id, car_id)
+
+        return res.status(201).json({
+            message: "Car added to dealership successfully.",
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+        })
+    }
 })
 
 export default router

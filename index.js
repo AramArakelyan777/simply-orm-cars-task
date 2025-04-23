@@ -16,8 +16,8 @@ app.use(errorMiddleware)
 const start = async () => {
     try {
         await sequelize.sync({
-            force: true,
-            alter: false,
+            force: false,
+            alter: true,
         })
         app.listen(PORT, () => {
             console.log(`SERVER RUNNING ON PORT ${PORT}.`)
