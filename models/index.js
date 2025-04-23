@@ -4,6 +4,7 @@ import Model from "./model.js"
 import Make from "./make.js"
 import Dealership from "./dealership.js"
 import User from "./user.js"
+import UsersDealerships from "./users_dealerships.js"
 
 Car.belongsTo(Model, { foreignKey: "model_id" })
 
@@ -36,4 +37,16 @@ Dealership.belongsToMany(Car, {
 Car.belongsToMany(Dealership, {
     through: "dealership_cars",
     foreignKey: "car_id",
+})
+
+User.belongsToMany(Dealership, {
+    through: UsersDealerships,
+    foreignKey: "user_id",
+    timestamps: false,
+})
+
+Dealership.belongsToMany(User, {
+    through: UsersDealerships,
+    foreignKey: "dealership_id",
+    timestamps: false,
 })

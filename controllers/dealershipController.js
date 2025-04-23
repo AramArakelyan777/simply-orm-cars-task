@@ -108,14 +108,37 @@ class DealershipController {
                 dealership_id
             )
 
-            if (!dealership)
+            if (!dealership) {
                 return res
                     .status(404)
                     .json({ message: "Dealership not found." })
+            }
+
+            const formattedDealership = {
+                id: dealership.id,
+                name: dealership.name,
+                address: dealership.address,
+                description: dealership.description,
+                users: dealership.Users,
+                cars: dealership.Cars.map((car) => ({
+                    id: car.id,
+                    make: car.Model?.Make?.name,
+                    model: car.Model?.name,
+                    price: car.price,
+                    year: car.year,
+                    vin: car.vin,
+                    features: car.Features,
+                    average_rating: car.Ratings[0]?.dataValues.avg_rating || 0,
+                    ratings: car.CarRatings.map((rating) => ({
+                        username: rating.User.name,
+                        rating: rating.rate,
+                    })),
+                })),
+            }
 
             return res.status(200).json({
                 message: "Dealership fetched successfully.",
-                dealership,
+                dealership: formattedDealership,
             })
         } catch (err) {
             return res.status(500).json({ message: err.message })
