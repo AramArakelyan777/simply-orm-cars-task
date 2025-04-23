@@ -16,4 +16,6 @@ router.get("/dealerships", dealershipController.getDealerships)
 
 router.get("/dealerships/:dealership_id", dealershipController.getADealership)
 
+router.post("/rating", userController.rateCar)
+
 export default router
