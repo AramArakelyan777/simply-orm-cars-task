@@ -7,10 +7,22 @@ const CarFeatures = sequelize.define(
         car_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: "cars",
+                key: "id",
+            },
+            onDelete: "CASCADE",
+            primaryKey: true,
         },
         feature_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: "features",
+                key: "id",
+            },
+            onDelete: "CASCADE",
+            primaryKey: true,
         },
     },
     { timestamps: false }
