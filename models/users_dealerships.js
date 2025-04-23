@@ -1,25 +1,29 @@
 import { DataTypes } from "sequelize"
 import sequelize from "../config/db.js"
 
-const UsersDealerships = sequelize.define("users_dealership", {
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: "users",
-            key: "id",
+const UsersDealerships = sequelize.define(
+    "users_dealership",
+    {
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "id",
+            },
+            onDelete: "CASCADE",
         },
-        onDelete: "CASCADE",
-    },
-    dealership_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: "dealerships",
-            key: "id",
+        dealership_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: "dealerships",
+                key: "id",
+            },
+            onDelete: "CASCADE",
         },
-        onDelete: "CASCADE",
     },
-})
+    { timestamps: false }
+)
 
 export default UsersDealerships

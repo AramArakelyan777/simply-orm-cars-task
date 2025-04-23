@@ -1,33 +1,37 @@
 import { DataTypes } from "sequelize"
 import sequelize from "../config/db.js"
 
-const CarRatings = sequelize.define("car_ratings", {
-    car_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: "cars",
-            key: "id",
+const CarRatings = sequelize.define(
+    "car_ratings",
+    {
+        car_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: "cars",
+                key: "id",
+            },
+            onDelete: "CASCADE",
         },
-        onDelete: "CASCADE",
-    },
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: "users",
-            key: "id",
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "id",
+            },
+            onDelete: "CASCADE",
         },
-        onDelete: "CASCADE",
-    },
-    rate: {
-        type: DataTypes.TINYINT,
-        allowNull: false,
-        validate: {
-            min: 0,
-            max: 5,
+        rate: {
+            type: DataTypes.TINYINT,
+            allowNull: false,
+            validate: {
+                min: 0,
+                max: 5,
+            },
         },
     },
-})
+    { timestamps: false }
+)
 
 export default CarRatings
