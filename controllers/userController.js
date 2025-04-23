@@ -30,7 +30,7 @@ class UserController {
                 message: "Please provide both car id and the user id.",
             })
 
-        if (!rate)
+        if (!rate && rate !== 0)
             return res
                 .status(400)
                 .json({ message: "You have not rated the car." })
