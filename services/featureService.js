@@ -10,6 +10,10 @@ class FeatureService {
     async addFeature(feature_id, car_id) {
         return await CarFeatures.create({ car_id, feature_id })
     }
+
+    async removeFeature(feature_id, car_id) {
+        return await CarFeatures.destroy({ where: { car_id, feature_id } })
+    }
 }
 
 export default new FeatureService()
