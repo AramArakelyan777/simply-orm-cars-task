@@ -1,12 +1,6 @@
-import Car from "../models/car.js"
-import CarRatings from "../models/car_rating.js"
 import Dealership from "../models/dealership.js"
 import DealershipCars from "../models/dealership_car.js"
-import User from "../models/user.js"
 import UsersDealerships from "../models/users_dealerships.js"
-import Feature from "../models/feature.js"
-import Make from "../models/make.js"
-import Model from "../models/model.js"
 import sequelize from "../config/db.js"
 
 class DealershipService {
@@ -47,61 +41,7 @@ class DealershipService {
     }
 
     async getADealership(dealership_id) {
-        return await Dealership.findByPk(dealership_id, {
-            attributes: ["id", "name", "address", "description"],
-            include: [
-                {
-                    model: User,
-                    through: { attributes: [] },
-                    attributes: ["id", "name", "email"],
-                },
-                {
-                    model: Car,
-                    through: { attributes: [] },
-                    attributes: ["id", "price", "year", "vin"],
-                    include: [
-                        {
-                            model: Model,
-                            attributes: ["name"],
-                            include: [
-                                {
-                                    model: Make,
-                                    attributes: ["name"],
-                                },
-                            ],
-                        },
-                        {
-                            model: Feature,
-                            through: { attributes: [] },
-                            attributes: ["id", "name"],
-                        },
-                        {
-                            model: CarRatings,
-                            attributes: [
-                                [
-                                    sequelize.fn(
-                                        "AVG",
-                                        sequelize.col("Cars->Ratings.rate")
-                                    ),
-                                    "avg_rating",
-                                ],
-                            ],
-                        },
-                        {
-                            model: CarRatings,
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ["name"],
-                                },
-                            ],
-                            attributes: ["rate"],
-                        },
-                    ],
-                },
-            ],
-            paranoid: false,
-        })
+        return await Dealership.findOne({ where: { id: dealership_id } })
     }
 }
 

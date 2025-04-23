@@ -24,11 +24,6 @@ Feature.belongsToMany(Car, {
     timestamps: false,
 })
 
-Dealership.hasMany(User, {
-    through: "users_dealership",
-    foreignKey: "dealership_id",
-})
-
 Dealership.belongsToMany(Car, {
     through: "dealership_cars",
     foreignKey: "dealership_id",

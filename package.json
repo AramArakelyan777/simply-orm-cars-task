@@ -6,6 +6,10 @@
     "author": "Aram Arakelyan <aram777arakelyan@gmail.com>",
     "license": "MIT",
     "scripts": {
+        "migrate": "sequelize-cli db:migrate",
+        "migration:generate": "sequelize-cli migration:generate --name",
+        "migrate:undo": "sequelize-cli db:migrate:undo",
+        "migrate:undo:all": "sequelize-cli db:migrate:undo:all",
         "dev": "node --watch --env-file .env index.js"
     },
     "dependencies": {
